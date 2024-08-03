@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.grpc";
+option java_outer_classname = "StockProto";
+
+package stock;
+
+service StockService {
+    rpc GetMarkets (Empty) returns (Response);
+    rpc GetStocksByMarket (GetStocksByMarketRequest) returns (Response);
+    rpc GetAllStocksByMarket (GetAllStocksByMarketRequest) returns (Response);
+    rpc GetStockDataByMarketAndCode (GetStockDataByMarketAndCodeRequest) returns (Response);
+    rpc SearchStocksByName (SearchStocksByNameRequest) returns (Response);
+    rpc SearchStocksByCode (SearchStocksByCodeRequest) returns (Response);
+    rpc GetMovingAverages (GetMovingAveragesRequest) returns (Response);
+    rpc GetBollingerBands (GetBollingerBandsRequest) returns (Response);
+    rpc GetMACD (GetMACDRequest) returns (Response);
+    rpc GetRSI (GetRSIRequest) returns (Response);
+}
+
+message Empty {}
+
+message GetStocksByMarketRequest {
+    string marketName = 1;
+}
+
+message GetAllStocksByMarketRequest {
+    string marketName = 1;
+    int32 page = 2;
+    int32 size = 3;
+    repeated string sort = 4;
+}
+
+message GetStockDataByMarketAndCodeRequest {
+    string marketName = 1;
+    string code = 2;
+    string timeframe = 3;
+}
+
+message SearchStocksByNameRequest {
+    string name = 1;
+    int32 page = 2;
+    int32 size = 3;
+    repeated string sort = 4;
+}
+
+message SearchStocksByCodeRequest {
+    string code = 1;
+    int32 page = 2;
+    int32 size = 3;
+    repeated string sort = 4;
+}
+
+message GetMovingAveragesRequest {
+    string stockCode = 1;
+    string timeframe = 2;
+    repeated int32 periods = 3;
+}
+
+message GetBollingerBandsRequest {
+    string stockCode = 1;
+    string timeframe = 2;
+}
+
+message GetMACDRequest {
+    string stockCode = 1;
+    string timeframe = 2;
+}
+
+message GetRSIRequest {
+    string stockCode = 1;
+    string timeframe = 2;
+}
+
+message Response {
+    string result = 1;
+}
